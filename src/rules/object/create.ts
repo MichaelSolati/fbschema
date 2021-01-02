@@ -19,7 +19,8 @@ export const createObject = (
     }
   }
 
-  return `function ${createFunctionName}(data) {
-  return ${propertyValidations.join(' &&\n') + ';'}
+  return `
+function ${createFunctionName}(data) {
+  return ${propertyValidations.join(' && ') + ';'}
 }`;
 };

@@ -46,7 +46,8 @@
     "gts": "^3.0.3",
     "json-schema": "^0.2.5",
     "json-schema-to-typescript": "^10.0.0",
-    "prettier": "^2.2.1"
+    "prettier": "^2.2.1",
+    "prettier-plugin-firestore-rules": "^0.1.5"
   },
   "devDependencies": {
     "@types/decomment": "^0.9.0",
