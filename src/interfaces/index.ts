@@ -5,14 +5,15 @@ import {compile} from 'json-schema-to-typescript';
 import * as path from 'path';
 import * as prettier from 'prettier';
 
-const libName = require('../package.json').name;
+const libName = require('../../package.json').name;
 
-export default async (
+export const generateInterface = async (
   json: JSONSchema4,
+  collectionName: string,
   fileName: string,
-  workingDirectory: string
+  interfaceDirectory: string
 ): Promise<void> => {
-  const generatedInterface = await compile(json, json.title || fileName);
+  const generatedInterface = await compile(json, collectionName);
   const globalInterface = `
   /**
    * This file was automatically generated DO NOT MODIFY IT BY HAND.
@@ -31,7 +32,7 @@ export default async (
   });
 
   fs.writeFileSync(
-    path.join(workingDirectory, 'types', libName, `${fileName}.d.ts`),
+    path.join(interfaceDirectory, `${fileName}.d.ts`),
     prettyInterface
   );
 };

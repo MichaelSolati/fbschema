@@ -1,26 +1,41 @@
+import * as fs from 'fs';
 import * as fsExtra from 'fs-extra';
 import * as glob from 'glob';
 import {JSONSchema4} from 'json-schema';
 import * as path from 'path';
 
-import generateInterface from './generate-interface';
+import {generateInterface} from './interfaces';
+import {generateRules, wrapRules} from './rules';
+import {getWorkingDirectory, stripString} from './utils';
 
 const libName = require('../package.json').name;
 
 export default async (filepath = process.cwd()): Promise<void> => {
-  const workingDirectory = path.isAbsolute(filepath)
-    ? filepath
-    : path.join(process.cwd(), filepath);
-
+  const collectionRules: string[] = [];
+  const workingDirectory = getWorkingDirectory(filepath);
   const schemasGlob = path.join(workingDirectory, libName, '**', '*.json');
-  glob(schemasGlob, {}, async (_, files) => {
-    const interfaceDirectory = path.join(workingDirectory, 'types', libName);
-    fsExtra.emptyDirSync(interfaceDirectory);
+  const interfaceDirectory = path.join(workingDirectory, 'types', libName);
+  fsExtra.emptyDirSync(interfaceDirectory);
 
+  glob(schemasGlob, {}, async (_, files) => {
     for (const file of files) {
-      const fileName = path.basename(file).split('.').shift() as string;
       const json: JSONSchema4 = require(file);
-      await generateInterface(json, fileName, workingDirectory);
+      const fileName = path.basename(file).split('.').shift() as string;
+      const collectionName = stripString(json.title || fileName);
+
+      await generateInterface(
+        json,
+        collectionName,
+        fileName,
+        interfaceDirectory
+      );
+
+      collectionRules.push(generateRules(json, collectionName));
     }
+
+    fs.writeFileSync(
+      path.join(workingDirectory, 'firestore.rules'),
+      wrapRules(collectionRules)
+    );
   });
 };
