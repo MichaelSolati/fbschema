@@ -11,9 +11,15 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: 12.x
+      - name: Setup Java
+        uses: actions/setup-java@v1
+        with:
+          java-version: 15.x
       - name: NPM Install
         run: npm install
       - name: Lint
         run: npm run lint
+      - name: Generate Rules
+        run: npm run generate
       - name: Test
         run: npm run test

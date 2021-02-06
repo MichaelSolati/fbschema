@@ -1,0 +1,25 @@
+{
+  "title": "String Collection",
+  "type": "object",
+  "properties": {
+    "simpleString": {
+      "type": "string"
+    },
+    "minLengthString": {
+      "type": "string",
+      "minLength": "3"
+    },
+    "maxLengthString": {
+      "type": "string",
+      "maxLength": "10"
+    },
+    "enumString": {
+      "enum": [
+        "1",
+        "2",
+        "3"
+      ],
+      "type": "string"
+    }
+  }
+}

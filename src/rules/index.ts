@@ -12,17 +12,17 @@ export const generateRules = (
   json: JSONSchema4,
   collectionName: string
 ): string => {
-  const createFunctionName = `create${collectionName.toUpperCase()}`;
+  const createFunctionName = `CREATE_${collectionName.toUpperCase()}`;
   const createRules = createObject(json, createFunctionName).functions;
 
   return `
-match /${collectionName}/{key} {
-  ${createRules.join('\n\n')}
+  match /${collectionName}/{key} {
+  ${createRules.join('\n')}
 
-  allow read: if false;
-  allow create: if ${createFunctionName}(request.resource.data);
-  allow update: if false;
-  allow delete: if false;
+    allow read: if false;
+    allow create: if ${createFunctionName}(request.resource.data);
+    allow update: if false;
+    allow delete: if false;
   }`;
 };
 

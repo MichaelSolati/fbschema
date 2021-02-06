@@ -8,6 +8,7 @@ export const createObject = (
 ): RulesReturn => {
   let functions: string[] = [];
   let rules: string[] = [];
+  const required = Array.isArray(json.required) ? json.required : [];
 
   if (Object.keys(json.properties || {}).length > 0) {
     // Create rules for each property of JSON Schema
@@ -16,7 +17,7 @@ export const createObject = (
       const property = json.properties[name];
       switch (property.type) {
         case 'string':
-          createdString = createString(name, property);
+          createdString = createString(name, required.includes(name), property);
           functions = [...functions, ...createdString.functions];
           rules = [...rules, ...createdString.rules];
           break;
@@ -35,8 +36,8 @@ export const createObject = (
     }
 
     // Create rule if there are required properties
-    if (Array.isArray(json.required) && json.required.length > 0) {
-      const hasAll = json.required.map(key => `'${key}'`).join(', ');
+    if (required.length > 0) {
+      const hasAll = required.map(key => `'${key}'`).join(', ');
       rules.push(`data.keys().hasAll([${hasAll}])`);
     }
 

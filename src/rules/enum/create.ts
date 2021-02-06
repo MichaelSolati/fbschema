@@ -7,7 +7,7 @@ export const createEnum = (
   enumArray: JSONSchema4Type[]
 ): RulesReturn => {
   const functionRules: string[] = [];
-  const functionName = `create${key.toUpperCase()}`;
+  const functionName = `CREATE_ENUM_${key.toUpperCase()}`;
 
   for (const element of enumArray) {
     switch (typeof element) {
@@ -26,7 +26,8 @@ export const createEnum = (
   }
   return {
     functions: [
-      `function ${functionName}(data) {
+      `
+    function ${functionName}(data) {
       return ${functionRules.join(' || ')};
     }`,
     ],

@@ -2,6 +2,10 @@
 
 [![npm](https://img.shields.io/npm/v/fbschema)](https://www.npmjs.com/package/fbschema)
 [![npm bundle size](https://img.shields.io/bundlephobia/minzip/fbschema)](https://bundlephobia.com/result?p=fbschema)
+[![Deploy CI](https://github.com/MichaelSolati/fbschema/workflows/Deploy%20CI/badge.svg)](https://github.com/MichaelSolati/fbschema/actions?query=workflow%3A%22Deploy+CI%22)
+[![Lint and Test](https://github.com/MichaelSolati/fbschema/workflows/Lint%20and%20Test/badge.svg)](https://github.com/MichaelSolati/fbschema/actions?query=workflow%3A%22Lint+and+Test%22)
+[![GitHub stars](https://img.shields.io/github/stars/MichaelSolati/fbschema)](https://github.com/MichaelSolati/fbschema/stargazers)
+[![GitHub forks](https://img.shields.io/github/forks/MichaelSolati/fbschema)](https://github.com/MichaelSolati/fbschema/network/members)
 
 A simple library to generate TypeScript definition files as well as Firestore rules based on a [JSON Schema](https://json-schema.org/) definition.
 
