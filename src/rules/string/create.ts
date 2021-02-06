@@ -1,16 +1,31 @@
 import {JSONSchema4} from 'json-schema';
+import {createEnum} from '../enum';
+import {RulesReturn} from '../';
 
-export const createString = (key: string, details: JSONSchema4): string => {
+export const createString = (
+  key: string,
+  details: JSONSchema4
+): RulesReturn => {
   const property = `data.${key}`;
-  const validations = [`${property} is string`];
+  let rules = [`${property} is string`];
+  let functions: string[] = [];
 
   if (details.maxLength) {
-    validations.push(`${property}.size() <= ${details.maxLength}`);
+    rules.push(`${property}.size() <= ${details.maxLength}`);
   }
 
   if (details.minLength) {
-    validations.push(`${property}.size() >= ${details.minLength}`);
+    rules.push(`${property}.size() >= ${details.minLength}`);
   }
 
-  return validations.join(' && ');
+  if (details.enum) {
+    const createdEnum = createEnum(key, property, details.enum);
+    functions = [...functions, ...createdEnum.functions];
+    rules = [...rules, ...createdEnum.rules];
+  }
+
+  return {
+    functions,
+    rules,
+  };
 };

@@ -1,18 +1,23 @@
 import {JSONSchema4} from 'json-schema';
-import * as prettier from 'prettier';
+// import * as prettier from 'prettier';
 
 import {createObject} from './object';
+
+export type RulesReturn = {
+  rules: string[];
+  functions: string[];
+};
 
 export const generateRules = (
   json: JSONSchema4,
   collectionName: string
 ): string => {
   const createFunctionName = `create${collectionName.toUpperCase()}`;
-  const createRules = createObject(json, createFunctionName);
+  const createRules = createObject(json, createFunctionName).functions;
 
   return `
 match /${collectionName}/{key} {
-  ${createRules}
+  ${createRules.join('\n\n')}
 
   allow read: if false;
   allow create: if ${createFunctionName}(request.resource.data);
@@ -31,13 +36,13 @@ service cloud.firestore {
   }
 }`;
 
-  const prettyFirestoreRules = prettier
-    .format(firestoreRules, {
-      // @ts-ignore
-      emptyLinesBetweenBlocks: 1,
-      parser: 'firestore',
-    })
-    .replace(/.&&/gm, ' &&');
+  // const prettyFirestoreRules = prettier
+  //   .format(firestoreRules, {
+  //     // @ts-ignore
+  //     emptyLinesBetweenBlocks: 1,
+  //     parser: 'firestore',
+  //   })
+  //   .replace(/.&&/gm, ' &&');
 
-  return prettyFirestoreRules;
+  return firestoreRules;
 };
