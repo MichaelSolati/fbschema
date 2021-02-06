@@ -60,6 +60,7 @@
     "@types/prettier": "^2.1.5",
     "chai": "^4.3.0",
     "firebase": "^8.2.6",
+    "firebase-tools": "^9.3.0",
     "generate-changelog": "^1.8.0",
     "jsdom": "^16.4.0",
     "jsdom-global": "^3.0.2",
