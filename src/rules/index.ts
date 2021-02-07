@@ -1,6 +1,4 @@
 import {JSONSchema4} from 'json-schema';
-// import * as prettier from 'prettier';
-
 import {createObject} from './object';
 
 export type RulesReturn = {
@@ -35,14 +33,6 @@ service cloud.firestore {
     ${rules.join('\n')}
   }
 }`;
-
-  // const prettyFirestoreRules = prettier
-  //   .format(firestoreRules, {
-  //     // @ts-ignore
-  //     emptyLinesBetweenBlocks: 1,
-  //     parser: 'firestore',
-  //   })
-  //   .replace(/.&&/gm, ' &&');
 
   return firestoreRules;
 };
