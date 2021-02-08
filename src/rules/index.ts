@@ -1,4 +1,4 @@
-import {JSONSchema4} from 'json-schema';
+import {JSONSchema7} from 'json-schema';
 import {createObject} from './object';
 
 export type RulesReturn = {
@@ -7,7 +7,7 @@ export type RulesReturn = {
 };
 
 export const generateRules = (
-  json: JSONSchema4,
+  json: JSONSchema7,
   collectionName: string
 ): string => {
   const createFunctionName = `CREATE_${collectionName.toUpperCase()}`;

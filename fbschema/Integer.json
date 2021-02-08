@@ -1,0 +1,42 @@
+{
+  "title": "Integer Collection",
+  "type": "object",
+  "properties": {
+    "simpleInteger": {
+      "type": "integer"
+    },
+    "minimumInteger": {
+      "type": "integer",
+      "minimum": 3
+    },
+    "exclusiveMinimumInteger": {
+      "type": "integer",
+      "exclusiveMinimum": 3
+    },
+    "maximumInteger": {
+      "type": "integer",
+      "maximum": 10
+    },
+    "exclusiveMaximumInteger": {
+      "type": "integer",
+      "exclusiveMaximum": 10
+    },
+    "multipleOfInteger": {
+      "type": "integer",
+      "multipleOf": 10
+    },
+    "rangeInteger": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 100
+    },
+    "enumInteger": {
+      "type": "integer",
+      "enum": [
+        1,
+        2,
+        3
+      ]
+    }
+  }
+}

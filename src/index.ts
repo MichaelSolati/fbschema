@@ -1,7 +1,7 @@
 import * as fs from 'fs';
 import * as fsExtra from 'fs-extra';
 import * as glob from 'glob';
-import {JSONSchema4} from 'json-schema';
+import {JSONSchema4, JSONSchema7} from 'json-schema';
 import * as path from 'path';
 
 import {generateInterface} from './interfaces';
@@ -19,12 +19,12 @@ export default async (filepath = process.cwd()): Promise<void> => {
 
   glob(schemasGlob, {}, async (_, files) => {
     for (const file of files) {
-      const json: JSONSchema4 = require(file);
+      const json: JSONSchema7 = require(file);
       const fileName = path.basename(file).split('.').shift() as string;
       const collectionName = stripString(json.title || fileName);
 
       await generateInterface(
-        json,
+        json as JSONSchema4,
         collectionName,
         fileName,
         interfaceDirectory

@@ -1,10 +1,10 @@
-import {JSONSchema4Type} from 'json-schema';
+import {JSONSchema7Type} from 'json-schema';
 import {RulesReturn} from '../';
 
 export const createEnum = (
   key: string,
   property: string,
-  enumArray: JSONSchema4Type[]
+  enumArray: JSONSchema7Type[]
 ): RulesReturn => {
   const functionRules: string[] = [];
   const functionName = `CREATE_ENUM_${key.toUpperCase()}`;

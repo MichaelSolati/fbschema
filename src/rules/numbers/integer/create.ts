@@ -1,25 +1,18 @@
 import {JSONSchema7} from 'json-schema';
-import {createEnum} from '../enum';
-import {RulesReturn} from '../';
-import {isNumber} from '../../utils';
+import {RulesReturn} from '../../';
+import {createEnum} from '../../enum';
+import {createNumbersRules} from '../create';
 
-export const createString = (
+export const createInteger = (
   key: string,
   required: boolean,
   details: JSONSchema7
 ): RulesReturn => {
   const property = `data.${key}`;
-  let rules = [`${property} is string`];
+  let rules = [`${property} is int`, ...createNumbersRules(property, details)];
   let functions: string[] = [];
 
-  if (isNumber(details.maxLength)) {
-    rules.push(`${property}.size() <= ${details.maxLength}`);
-  }
-
-  if (isNumber(details.minLength)) {
-    rules.push(`${property}.size() >= ${details.minLength}`);
-  }
-
+  // Rule for enum integer
   if (details.enum) {
     const createdEnum = createEnum(key, property, details.enum);
     functions = [...functions, ...createdEnum.functions];

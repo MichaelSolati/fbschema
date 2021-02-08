@@ -1,9 +1,11 @@
-import {JSONSchema4} from 'json-schema';
+import {JSONSchema7} from 'json-schema';
 import {RulesReturn} from '../';
-import {createString} from '../string/create';
+import {createString} from '../string';
+import {createInteger, createNumber} from '../numbers';
+import {isBoolean} from '../../utils';
 
 export const createObject = (
-  json: JSONSchema4,
+  json: JSONSchema7,
   createFunctionName: string
 ): RulesReturn => {
   let functions: string[] = [];
@@ -13,17 +15,29 @@ export const createObject = (
   if (Object.keys(json.properties || {}).length > 0) {
     // Create rules for each property of JSON Schema
     for (const name in json.properties) {
-      let createdString;
-      const property = json.properties[name];
+      // Propert can be `boolean` if it is, skip it.
+      if (isBoolean(json.properties[name])) {
+        continue;
+      }
+      const property = json.properties[name] as JSONSchema7;
+      let tempRules;
+
       switch (property.type) {
         case 'string':
-          createdString = createString(name, required.includes(name), property);
-          functions = [...functions, ...createdString.functions];
-          rules = [...rules, ...createdString.rules];
+          tempRules = createString(name, required.includes(name), property);
           break;
-
+        case 'integer':
+          tempRules = createInteger(name, required.includes(name), property);
+          break;
+        case 'number':
+          tempRules = createNumber(name, required.includes(name), property);
+          break;
         default:
           break;
+      }
+      if (tempRules) {
+        functions = [...functions, ...tempRules.functions];
+        rules = [...rules, ...tempRules.rules];
       }
     }
 
@@ -39,6 +53,11 @@ export const createObject = (
     if (required.length > 0) {
       const hasAll = required.map(key => `'${key}'`).join(', ');
       rules.push(`data.keys().hasAll([${hasAll}])`);
+    }
+
+    // Disable if no rules generated
+    if (rules.length === 0) {
+      rules.push('false');
     }
 
     functions.push(`

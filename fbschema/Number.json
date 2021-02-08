@@ -1,0 +1,42 @@
+{
+  "title": "Number Collection",
+  "type": "object",
+  "properties": {
+    "simpleNumber": {
+      "type": "number"
+    },
+    "minimumNumber": {
+      "type": "number",
+      "minimum": 3
+    },
+    "exclusiveMinimumNumber": {
+      "type": "number",
+      "exclusiveMinimum": 3
+    },
+    "maximumNumber": {
+      "type": "number",
+      "maximum": 10
+    },
+    "exclusiveMaximumNumber": {
+      "type": "number",
+      "exclusiveMaximum": 10
+    },
+    "multipleOfNumber": {
+      "type": "number",
+      "multipleOf": 10
+    },
+    "rangeNumber": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 100
+    },
+    "enumNumber": {
+      "type": "number",
+      "enum": [
+        1.1,
+        2.2,
+        3.3
+      ]
+    }
+  }
+}
