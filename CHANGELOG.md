@@ -1,3 +1,9 @@
+### 0.2.0 (2021-02-25)
+
+##### New Features
+
+* **rules:**  allow user written rules ([45dad108](https://github.com/MichaelSolati/fbschema/commit/45dad108f3928f778de879faa1a9996b893e383f))
+
 ### 0.1.0 (2021-02-08)
 
 ##### Chores
