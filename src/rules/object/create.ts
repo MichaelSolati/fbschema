@@ -1,11 +1,11 @@
-import {JSONSchema7} from 'json-schema';
+import {FBSchema} from '../../fbschema';
 import {RulesReturn} from '../';
 import {createString} from '../string';
 import {createInteger, createNumber} from '../numbers';
 import {isBoolean} from '../../utils';
 
 export const createObject = (
-  json: JSONSchema7,
+  json: FBSchema,
   createFunctionName: string
 ): RulesReturn => {
   let functions: string[] = [];
@@ -19,7 +19,7 @@ export const createObject = (
       if (isBoolean(json.properties[name])) {
         continue;
       }
-      const property = json.properties[name] as JSONSchema7;
+      const property = json.properties[name] as FBSchema;
       let tempRules;
 
       switch (property.type) {

@@ -1,0 +1,9 @@
+{
+  "title": "Custom Rules Collection",
+  "type": "object",
+  "properties": {},
+  "fbschema": {
+    "create": "key == 'newid'",
+    "read": true
+  }
+}

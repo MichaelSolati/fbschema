@@ -1,9 +1,9 @@
-import {JSONSchema7} from 'json-schema';
+import {FBSchema} from '../../fbschema';
 import {isNumber} from '../../utils';
 
 export const createNumbersRules = (
   property: string,
-  details: JSONSchema7
+  details: FBSchema
 ): string[] => {
   const rules = [];
 

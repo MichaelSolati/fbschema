@@ -1,4 +1,4 @@
-import {JSONSchema7} from 'json-schema';
+import {FBSchema} from '../../../fbschema';
 import {RulesReturn} from '../../';
 import {createEnum} from '../../enum';
 import {createNumbersRules} from '../create';
@@ -6,7 +6,7 @@ import {createNumbersRules} from '../create';
 export const createNumber = (
   key: string,
   required: boolean,
-  details: JSONSchema7
+  details: FBSchema
 ): RulesReturn => {
   const property = `data.${key}`;
   let rules = [

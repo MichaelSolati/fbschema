@@ -1,4 +1,4 @@
-import {JSONSchema7} from 'json-schema';
+import {FBSchema} from '../../fbschema';
 import {createEnum} from '../enum';
 import {RulesReturn} from '../';
 import {isNumber} from '../../utils';
@@ -6,7 +6,7 @@ import {isNumber} from '../../utils';
 export const createString = (
   key: string,
   required: boolean,
-  details: JSONSchema7
+  details: FBSchema
 ): RulesReturn => {
   const property = `data.${key}`;
   let rules = [`${property} is string`];
