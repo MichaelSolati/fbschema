@@ -65,7 +65,7 @@
     "@types/node": "^22.7.5"
   },
   "bin": {
-    "fbschema": "./dist/cli.js"
+    "fbschema": "dist/cli.js"
   },
   "mocha": {
     "extension": [
