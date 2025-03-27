@@ -1,3 +1,35 @@
+### 0.3.0 (2025-03-27)
+
+##### Build System / Dependencies
+
+*  dont type check dependencies on build ([13af8cd7](https://github.com/MichaelSolati/fbschema/commit/13af8cd7e5bbdddd9734639e409352c11098d2a8))
+
+##### Chores
+
+*  update dependencies and tests ([9ac78d67](https://github.com/MichaelSolati/fbschema/commit/9ac78d677087264e6de9d41c5d9c99ec70ee177f))
+* **workflows:**  update GitHub action workflows ([15b10040](https://github.com/MichaelSolati/fbschema/commit/15b10040287d085e79da03d47481278778d70626))
+* **rules:**  remove rules code (for now) ([539fabe6](https://github.com/MichaelSolati/fbschema/commit/539fabe61d41415eb7b2f6a8dd0c6f70cc0822ab))
+
+##### Documentation Changes
+
+*  revamp README ([27b8594e](https://github.com/MichaelSolati/fbschema/commit/27b8594e395377ec7b195e0dfecaecb67c8e4e7e))
+
+##### New Features
+
+*  add optional logging ([c27f00cb](https://github.com/MichaelSolati/fbschema/commit/c27f00cb9440aa13dff9c4d0a5d164bb3a6d8856))
+
+##### Bug Fixes
+
+* **bin:**  correct file path ([b14e5bc2](https://github.com/MichaelSolati/fbschema/commit/b14e5bc2fa057d3eb1acc442ee3a4f9e90faeb8f))
+* **workflows:**
+  *  restructure how deploy is called ([837e9a54](https://github.com/MichaelSolati/fbschema/commit/837e9a5481291922d1e8da1e1f8b68cdcc9a05b1))
+  *  hopefully fix workflows ([64649ced](https://github.com/MichaelSolati/fbschema/commit/64649cedac1a228aca9cacb6d39c8d84d1fed356))
+*  fix build and lint ([ea61db84](https://github.com/MichaelSolati/fbschema/commit/ea61db8426eca0cb23e7c98a63cd2b930874357b))
+
+##### Refactors
+
+* **interfaces:**  revamp interface generation ([6dc8713b](https://github.com/MichaelSolati/fbschema/commit/6dc8713bff14f61f67a8dd6aaca365caf3cd8eba))
+
 ### 0.2.0 (2021-02-25)
 
 ##### New Features
