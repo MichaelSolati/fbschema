@@ -25,7 +25,7 @@ const options = {
 
 export const generateInterfaces = async (
   schemasFolder: string,
-  typesFolder: string
+  typesFolder: string,
 ): Promise<void> => {
   const tsFileNames: string[] = [];
 
@@ -50,6 +50,6 @@ export const generateInterfaces = async (
 
   await fsExtra.writeFile(
     path.join(typesFolder, 'index.ts'),
-    exportFile.join('\n')
+    exportFile.join('\n'),
   );
 };

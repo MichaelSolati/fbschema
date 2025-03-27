@@ -12,7 +12,7 @@ export const generate = async (filepath = process.cwd()): Promise<void> => {
   const interfaceDirectory = path.join(
     workingDirectory,
     'types',
-    jsonSchemaFolder
+    jsonSchemaFolder,
   );
 
   await generateInterfaces(schemasFolder, interfaceDirectory);
