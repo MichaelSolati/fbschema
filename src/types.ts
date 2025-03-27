@@ -16,3 +16,13 @@ export type FBSchemaOperationsObject = {
 export interface FBSchema extends JSONSchema7 {
   fbschema?: FBSchemaOperationsObject;
 }
+
+export type GenerationOptions = {
+  emitLogs?: boolean;
+};
+
+type LogLevel = 'log' | 'warn' | 'error' | 'info' | 'debug';
+
+export type LogOptions = GenerationOptions & {
+  level?: LogLevel;
+};

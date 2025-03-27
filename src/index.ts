@@ -1,12 +1,20 @@
 import * as path from 'path';
 
 import {generateInterfaces} from './interfaces';
-import {getWorkingDirectory} from './utils';
+import {GenerationOptions} from './types';
+import {getWorkingDirectory, log} from './utils';
 
 const jsonSchemaFolder = require('../package.json').name;
 
-export {FBSchema} from './fbschema';
-export const generate = async (filepath = process.cwd()): Promise<void> => {
+export {FBSchema} from './types';
+
+export const generate = async (
+  filepath = process.cwd(),
+  options: GenerationOptions = {emitLogs: false},
+): Promise<void> => {
+  log(options, '🚀 Starting FBSchema generation...');
+  log(options, `📂 Working directory: ${filepath}`);
+
   const workingDirectory = getWorkingDirectory(filepath);
   const schemasFolder = path.join(workingDirectory, jsonSchemaFolder);
   const interfaceDirectory = path.join(
@@ -15,7 +23,20 @@ export const generate = async (filepath = process.cwd()): Promise<void> => {
     jsonSchemaFolder,
   );
 
-  await generateInterfaces(schemasFolder, interfaceDirectory);
+  log(options, `📁 Schemas folder: ${schemasFolder}`);
+  log(options, `📁 Interface output folder: ${interfaceDirectory}`);
+
+  try {
+    await generateInterfaces(schemasFolder, interfaceDirectory, options);
+    log(options, '✅ FBSchema generation completed successfully!');
+  } catch (error) {
+    log(
+      {...options, level: 'error'},
+      '❌ Error during FBSchema generation:',
+      error,
+    );
+    throw error;
+  }
 };
 
 export default generate;
