@@ -7,53 +7,70 @@
 [![GitHub stars](https://img.shields.io/github/stars/MichaelSolati/fbschema)](https://github.com/MichaelSolati/fbschema/stargazers)
 [![GitHub forks](https://img.shields.io/github/forks/MichaelSolati/fbschema)](https://github.com/MichaelSolati/fbschema/network/members)
 
-A simple library to generate TypeScript definition files as well as Firestore rules based on a [JSON Schema](https://json-schema.org/) definition.
+✨ A simple library to generate **TypeScript definition files** as well as **Firestore rules** based on a [JSON Schema](https://json-schema.org/) definition.  
 
-## WARNING
+> [!WARNING]  
+> This is a **WIP** library and currently only generates **TypeScript interfaces**. It may contain bugs. Use at your own risk and feel free to [contribute](#contributing)!
 
-This is a WIP library and currently only generates TypeScript interfaces, as well as may be buggy. Use at your own risk and feel free to [contribute](https://github.com/MichaelSolati/fbschema/pulls)!
+## ✨ Features  
 
-## Table of Contents
+- 🔹 Generates **TypeScript interfaces** from JSON Schema files  
+- 🔹 Generates **Firestore rules** from JSON Schema files *(Coming Soon!)*  
 
-- [Downloading](#downloading)
-- [Documentation](#documentation)
-- [Contributing](#contributing)
-
-## Downloading
-
-You can install fbschema via npm:
+## 📦 Installation  
 
 ```bash
 npm install fbschema
 ```
 
-## Documentation
+## 🚀 Usage  
 
-This library expects a JSON Schema for each Firestore collection in the root of your porject in a folder called `fbschema`. From there it will generate TypeScript definition files into the a `types/fbschema` folder as well as (one day soon) creating a new `firestore.rules` file.
-
-You can do this from the command line:
+### 🛠 CLI  
 
 ```bash
-# If you're in the root of your project
 npx fbschema
-
-# Or you can pass in a path to your project's root
-npx fbschema ~/workspace/my-cool-firebase-project
 ```
 
-You can also use this library in your code:
+The CLI will:  
+1️⃣ Take the current working directory and look for JSON Schema files in the `fbschema` subdirectory 📂  
+2️⃣ Generate TypeScript interfaces in a `types/fbschema` subdirectory ✍️  
+3️⃣ Show detailed progress logs 📜  
 
-```TypeScript
+### 🏗 Programmatic Usage  
+
+```typescript
 import fbschema from 'fbschema';
 
-// If you're running this code from your project's root
-fbschema();
+// ✅ Basic usage
+await fbschema();
 
+// 📂 With custom working directory
+await fbschema('./your-project');
 
-// You can also provide a path to your project's root
-fbschema('../');
+// 📢 With logging options
+await fbschema('./your-project', {
+  emitLogs: true, // Enable logging
+});
 ```
 
-## Contributing
+## 📁 Directory Structure  
 
-All code should pass tests, as well as be well documented. [Please also see the Commit Message Guidelines](CONTRIBUTING.md) for how commit messages should be structured.
+By default, the tool expects the following structure:  
+
+```
+your-project/
+├── fbschema/          # 📁 Your JSON Schema directory
+│   └── *.json         # 📜 Your JSON Schema files
+└── types/
+    └── fbschema/      # 🏗 Generated TypeScript interfaces
+        ├── index.ts   # 📌 Main entry point for the generated types
+        └── *.ts       # 🔧 Generated TypeScript files
+```
+
+## 🤝 Contributing  
+
+🛠 All code should pass tests and be well documented. Also, check out the [Commit Message Guidelines](CONTRIBUTING.md) before submitting your PR.  
+
+## ⚖️ License  
+
+📜 [MIT](LICENSE.md)  
