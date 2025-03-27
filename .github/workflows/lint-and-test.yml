@@ -26,4 +26,7 @@ jobs:
         run: npm run test
       - name: Trigger Deploy
         if: startsWith(github.ref, 'refs/tags/v')
-        uses: ./.github/workflows/deploy.yml
+        run: |
+          gh workflow run deploy.yml --ref ${{ github.ref }}
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
