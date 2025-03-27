@@ -6,20 +6,26 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
       - name: Setup Node
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v4
         with:
-          node-version: 12.x
+          node-version: lts/*
       - name: Setup Java
-        uses: actions/setup-java@v1
+        uses: actions/setup-java@v4
         with:
-          java-version: 15.x
-      - name: NPM Install
-        run: npm install
+          java-version: 17
+          distribution: temurin
+      - name: Install dependencies
+        run: npm ci
       - name: Lint
         run: npm run lint
       - name: Generate Rules
         run: npm run generate
       - name: Test
         run: npm run test
+      - name: Emit Tag Event
+        if: startsWith(github.ref, 'refs/tags/v')
+        run: |
+          echo "Lint and test passed for tag ${{ github.ref_name }}"
+          echo "tag=${{ github.ref_name }}" >> $GITHUB_OUTPUT
