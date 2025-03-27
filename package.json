@@ -41,19 +41,14 @@
     "README.md"
   ],
   "dependencies": {
-    "decomment": "^0.9.3",
     "fs-extra": "^9.0.1",
-    "glob": "^7.1.6",
     "gts": "^3.0.3",
     "json-schema": "^0.2.5",
-    "json-schema-to-typescript": "^10.0.0",
-    "prettier": "^2.2.1"
+    "json-schema-to-typescript": "^10.0.0"
   },
   "devDependencies": {
     "@types/chai": "^4.2.14",
-    "@types/decomment": "^0.9.0",
     "@types/fs-extra": "^9.0.5",
-    "@types/glob": "^7.1.3",
     "@types/lodash": "^4.14.165",
     "@types/mocha": "^8.2.0",
     "@types/prettier": "^2.1.5",
