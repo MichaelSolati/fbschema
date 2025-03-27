@@ -5,9 +5,9 @@
   "main": "dist/index.js",
   "scripts": {
     "build": "rimraf ./dist && tsc",
-    "generate": "npm run build && node dist/cli.js",
-    "lint": "gts lint",
-    "fix": "gts fix",
+    "generate": "npm run build && node ./dist/cli.js",
+    "lint": "gts lint --project tsconfig.lint.json",
+    "fix": "gts fix --project tsconfig.lint.json",
     "mocha": "mocha --package package.json --exit",
     "prepare": "npm run build",
     "release:major": "changelog -M && git add . && git commit -m 'chore(release): major version release' && npm version major",
