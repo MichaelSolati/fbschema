@@ -1,3 +1,13 @@
+### 0.4.0 (2025-03-28)
+
+##### Documentation Changes
+
+* **readme:**  add details for firestore rules generation ([723d75a8](https://github.com/MichaelSolati/fbschema/commit/723d75a8ec484f70f9cf4903871c5d3ee2fc58c1))
+
+##### New Features
+
+* **rules:**  add basic Firestore rules generation ([a6cecfd0](https://github.com/MichaelSolati/fbschema/commit/a6cecfd079a5686998329755f7d69be0f1b21259))
+
 ### 0.3.0 (2025-03-27)
 
 ##### Build System / Dependencies
