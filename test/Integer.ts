@@ -4,7 +4,7 @@ import {collection, addDoc} from 'firebase/firestore';
 import {firestore} from './common';
 
 const expect = chai.expect;
-const collectionRef = collection(firestore, 'IntegerCollection');
+const collectionRef = collection(firestore, 'IntegerCollections');
 
 describe('Integer Tests:', () => {
   describe('Create Tests:', () => {

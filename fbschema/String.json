@@ -1,6 +1,17 @@
 {
+  "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "String Collection",
   "type": "object",
+  "required": ["simple"], 
+  "fbschema": {
+    "read": true,
+    "get": true,
+    "list": true,
+    "write": true,
+    "create": true,
+    "update": true,
+    "delete": true
+  },
   "properties": {
     "simple": {
       "type": "string"

@@ -4,7 +4,7 @@ import {collection, addDoc} from 'firebase/firestore';
 import {firestore} from './common';
 
 const expect = chai.expect;
-const collectionRef = collection(firestore, 'StringCollection');
+const collectionRef = collection(firestore, 'StringCollections');
 
 describe('String Tests:', () => {
   describe('Create Tests:', () => {

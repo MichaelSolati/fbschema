@@ -2,11 +2,12 @@ import * as path from 'path';
 
 import {generateInterfaces} from './interfaces';
 import {GenerationOptions} from './types';
+import {generateFirestoreRules} from './rules';
 import {getWorkingDirectory, log} from './utils';
 
 const jsonSchemaFolder = require('../package.json').name;
 
-export {FBSchema} from './types';
+export {FirestoreJSONSchema} from './types';
 
 export const generate = async (
   filepath = process.cwd(),
@@ -28,6 +29,9 @@ export const generate = async (
 
   try {
     await generateInterfaces(schemasFolder, interfaceDirectory, options);
+    log(options, '✅ FBSchema generated interfaces successfully!');
+    await generateFirestoreRules(schemasFolder, workingDirectory, options);
+    log(options, '✅ FBSchema generated Firestore rules successfully!');
     log(options, '✅ FBSchema generation completed successfully!');
   } catch (error) {
     log(

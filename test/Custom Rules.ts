@@ -4,7 +4,7 @@ import {collection, doc, setDoc, addDoc, getDocs} from 'firebase/firestore';
 import {firestore} from './common';
 
 const expect = chai.expect;
-const collectionRef = collection(firestore, 'CustomRulesCollection');
+const collectionRef = collection(firestore, 'CustomRulesCollections');
 
 describe('Custom Rules Tests:', () => {
   describe('Create Tests:', () => {
