@@ -1,3 +1,10 @@
+#### 0.4.1 (2025-03-31)
+
+##### Bug Fixes
+
+* **interfaces:**  remove extensions from index.ts ([e6d860af](https://github.com/MichaelSolati/fbschema/commit/e6d860af7cb71f4fdb5c950a8cef333cb5aba571))
+* **rules:**  set time stamps as strings for now ([4fb06672](https://github.com/MichaelSolati/fbschema/commit/4fb066728761ab4094a1a4c23342a5fc5953279c))
+
 ### 0.4.0 (2025-03-28)
 
 ##### Documentation Changes
