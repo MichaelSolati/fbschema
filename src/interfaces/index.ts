@@ -58,7 +58,9 @@ export const generateInterfaces = async (
   }
 
   log(generationOptions, '📦 Generating index file...');
-  const exportFile = tsFileNames.map(s => `export * from './${s}';`);
+  const exportFile = tsFileNames.map(
+    s => `export * from './${path.parse(s).name}';`,
+  );
   exportFile.unshift(globalBannerComment + '\n');
   exportFile.push('');
 
