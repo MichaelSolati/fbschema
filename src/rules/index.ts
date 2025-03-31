@@ -9,11 +9,9 @@ function generateCollectionName(schema: FirestoreJSONSchema): string {
   return schema.title?.replace(/[^a-zA-Z0-9]/g, '') + 's';
 }
 
-function convertTypeToFirestore(type: string, format?: string): string {
+function convertTypeToFirestore(type: string): string {
   switch (type) {
     case 'string':
-      if (format === 'date-time') return 'timestamp';
-      if (format === 'uri') return 'string';
       return 'string';
     case 'number':
       return 'number';
@@ -36,7 +34,7 @@ function generatePropertyRule(
   required: boolean,
   isCreate = false,
 ): string {
-  const type = convertTypeToFirestore(prop.type as string, prop.format);
+  const type = convertTypeToFirestore(prop.type as string);
   const rules: string[] = [];
 
   // Handle required fields
