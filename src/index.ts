@@ -10,11 +10,14 @@ const jsonSchemaFolder = require('../package.json').name;
 export {FirestoreJSONSchema} from './types';
 
 export const generate = async (
-  filepath = process.cwd(),
-  options: GenerationOptions = {emitLogs: false},
+  options: GenerationOptions = {
+    logs: false,
+    rules: true,
+    types: true,
+  },
 ): Promise<void> => {
   log(options, '🚀 Starting FBSchema generation...');
-  const workingDirectory = getWorkingDirectory(filepath);
+  const workingDirectory = getWorkingDirectory(options.path);
   log(options, `📂 Working directory: ${workingDirectory}`);
   const schemasFolder = path.join(workingDirectory, jsonSchemaFolder);
   const interfaceDirectory = path.join(
@@ -24,13 +27,18 @@ export const generate = async (
   );
 
   log(options, `📁 Schemas folder: ${schemasFolder}`);
-  log(options, `📁 Interface output folder: ${interfaceDirectory}`);
 
   try {
-    await generateInterfaces(schemasFolder, interfaceDirectory, options);
-    log(options, '✅ FBSchema generated interfaces successfully!');
-    await generateFirestoreRules(schemasFolder, workingDirectory, options);
-    log(options, '✅ FBSchema generated Firestore rules successfully!');
+    if (options.types) {
+      log(options, `📁 Interface output folder: ${interfaceDirectory}`);
+      await generateInterfaces(schemasFolder, interfaceDirectory, options);
+      log(options, '✅ FBSchema generated interfaces successfully!');
+    }
+    if (options.rules) {
+      log(options, `📁 Rules output folder: ${workingDirectory}`);
+      await generateFirestoreRules(schemasFolder, workingDirectory, options);
+      log(options, '✅ FBSchema generated Firestore rules successfully!');
+    }
     log(options, '✅ FBSchema generation completed successfully!');
   } catch (error) {
     log(

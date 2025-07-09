@@ -18,7 +18,10 @@ export interface FirestoreJSONSchema extends JSONSchema7 {
 }
 
 export type GenerationOptions = {
-  emitLogs?: boolean;
+  path?: string;
+  logs?: boolean;
+  rules?: boolean;
+  types?: boolean;
 };
 
 type LogLevel = 'log' | 'warn' | 'error' | 'info' | 'debug';
