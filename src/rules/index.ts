@@ -166,7 +166,7 @@ function generateSchemaRules(schema: FirestoreJSONSchema): string {
 export const generateFirestoreRules = async (
   schemasFolder: string,
   workingDirectory: string,
-  generationOptions: GenerationOptions = {emitLogs: false},
+  generationOptions: GenerationOptions = {logs: false},
 ): Promise<void> => {
   log(generationOptions, '📝 Starting Firestore rules generation...');
   const schemaFiles = (await fs.readdir(schemasFolder)).filter(file =>

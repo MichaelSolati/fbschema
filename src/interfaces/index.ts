@@ -29,7 +29,7 @@ const options = {
 export const generateInterfaces = async (
   schemasFolder: string,
   typesFolder: string,
-  generationOptions: GenerationOptions = {emitLogs: false},
+  generationOptions: GenerationOptions = {logs: false},
 ): Promise<void> => {
   log(generationOptions, '📝 Starting interface generation...');
   const tsFileNames: string[] = [];
