@@ -6,7 +6,9 @@
     "rootDir": "src",
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
-    "composite": false
+    "composite": false,
+    "resolveJsonModule": true,
+    "esModuleInterop": true
   },
   "include": ["src"],
   "exclude": ["node_modules", "test"]

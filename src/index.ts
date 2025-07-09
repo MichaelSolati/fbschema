@@ -14,9 +14,8 @@ export const generate = async (
   options: GenerationOptions = {emitLogs: false},
 ): Promise<void> => {
   log(options, '🚀 Starting FBSchema generation...');
-  log(options, `📂 Working directory: ${filepath}`);
-
   const workingDirectory = getWorkingDirectory(filepath);
+  log(options, `📂 Working directory: ${workingDirectory}`);
   const schemasFolder = path.join(workingDirectory, jsonSchemaFolder);
   const interfaceDirectory = path.join(
     workingDirectory,
