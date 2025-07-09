@@ -51,11 +51,13 @@ import fbschema from 'fbschema';
 await fbschema();
 
 // 📂 With custom working directory
-await fbschema('./your-project');
+await fbschema({
+  path: './your-project',
+});
 
 // 📢 With logging options
-await fbschema('./your-project', {
-  emitLogs: true, // Enable logging
+await fbschema({
+  logs: true, // Enable logging
 });
 ```
 
