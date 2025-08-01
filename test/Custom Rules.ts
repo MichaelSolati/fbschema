@@ -8,27 +8,39 @@ const collectionRef = collection(firestore, 'CustomRulesCollections');
 
 describe('Custom Rules Tests:', () => {
   describe('Create Tests:', () => {
-    it('Accepts object with id of `newid`', () => {
-      return setDoc(doc(collectionRef, 'newid'), {
+    it('Accepts object with id of `newid`', async () => {
+      await setDoc(doc(collectionRef, 'newid'), {
         simple: 1,
-      }).then(() => expect(true).to.be.true);
+      });
+      expect(true).to.be.true;
     });
 
-    it('Does not accepts object with id of not of `newid`', () => {
-      return setDoc(doc(collectionRef, 'notnewid'), {
-        simple: 1,
-      }).catch(() => expect(true).to.be.true);
+    it('Does not accepts object with id of not of `newid`', async () => {
+      try {
+        await setDoc(doc(collectionRef, 'notnewid'), {
+          simple: 1,
+        });
+        expect(false).to.be.true; // Should not reach here
+      } catch (e) {
+        expect(true).to.be.true;
+      }
     });
 
-    it('Does not accepts object auto generated id', () => {
-      return addDoc(collectionRef, {
-        simple: 1,
-      }).catch(() => expect(true).to.be.true);
+    it('Does not accepts object auto generated id', async () => {
+      try {
+        await addDoc(collectionRef, {
+          simple: 1,
+        });
+        expect(false).to.be.true; // Should not reach here
+      } catch (e) {
+        expect(true).to.be.true;
+      }
     });
   });
   describe('Read Tests:', () => {
-    it('Collection can be read', () => {
-      return getDocs(collectionRef).then(() => expect(true).to.be.true);
+    it('Collection can be read', async () => {
+      await getDocs(collectionRef);
+      expect(true).to.be.true;
     });
   });
 });
