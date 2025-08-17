@@ -1,6 +1,6 @@
 import * as path from 'path';
 
-import {LogOptions} from '../types';
+import {FirestoreJSONSchema, LogOptions} from '../types';
 
 export const getWorkingDirectory = (filepath = process.cwd()): string =>
   path.isAbsolute(filepath) ? filepath : path.join(process.cwd(), filepath);
@@ -26,3 +26,7 @@ export const log = (options: LogOptions, ...args: unknown[]) => {
     }
   }
 };
+
+export function generateCollectionName(schema: FirestoreJSONSchema): string {
+  return schema.title.replace(/[^a-zA-Z0-9]/g, '');
+}

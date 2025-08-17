@@ -3,7 +3,7 @@ import {compileFromFile} from 'json-schema-to-typescript';
 import * as path from 'path';
 
 import {GenerationOptions} from '../types';
-import {log} from '../utils';
+import {generateCollectionName, log} from '../utils';
 
 const libName = require('../../package.json').name;
 const globalBannerComment = `/**
@@ -51,7 +51,8 @@ export const generateInterfaces = async (
     const tsFileName = `${schemaParsedPath.name}.ts`;
     tsFileNames.push(tsFileName);
     const definitionPath = path.join(typesFolder, tsFileName);
-
+    const schema = JSON.parse(await fsExtra.readFile(schemaPath, 'utf-8'));
+    schema.title = generateCollectionName(schema);
     const definition = await compileFromFile(schemaPath, options);
     await fsExtra.writeFile(definitionPath, definition);
     log(generationOptions, `✅ Generated interface: ${tsFileName}`);

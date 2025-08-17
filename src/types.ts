@@ -14,6 +14,7 @@ export type FBSchemaOperationsObject = {
 };
 
 export interface FirestoreJSONSchema extends JSONSchema7 {
+  title: string;
   fbschema?: FBSchemaOperationsObject;
 }
 

@@ -3,11 +3,7 @@ import {JSONSchema7} from 'json-schema';
 import * as path from 'path';
 
 import {FirestoreJSONSchema, GenerationOptions} from '../types';
-import {log} from '../utils';
-
-function generateCollectionName(schema: FirestoreJSONSchema): string {
-  return schema.title?.replace(/[^a-zA-Z0-9]/g, '') + 's';
-}
+import {generateCollectionName, log} from '../utils';
 
 function convertTypeToFirestore(type: string): string {
   switch (type) {
