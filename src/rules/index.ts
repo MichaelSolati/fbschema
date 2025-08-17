@@ -2,7 +2,11 @@ import * as fs from 'fs/promises';
 import {JSONSchema7} from 'json-schema';
 import * as path from 'path';
 
-import {FirestoreJSONSchema, GenerationOptions} from '../types';
+import {
+  FBSchemaOperations,
+  FirestoreJSONSchema,
+  GenerationOptions,
+} from '../types';
 import {generateCollectionName, log} from '../utils';
 
 function convertTypeToFirestore(type: string): string {
@@ -113,50 +117,82 @@ function generatePropertyRule(
     : `(!('${name}' in request.resource.data) || (${rules.join(' && ')}))`;
 }
 
-function generateSchemaRules(schema: FirestoreJSONSchema): string {
-  const collectionName = generateCollectionName(schema);
-  const required = schema.required || [];
+/**
+ * JSDoc for generateOperationRule
+ *
+ * @param schema - The Firestore JSON schema.
+ * @param operation - The operation to generate the rule for.
+ * @returns The generated rule.
+ */
+function generateOperationRule(
+  schema: FirestoreJSONSchema,
+  operation: FBSchemaOperations,
+): string {
   const rules = schema.fbschema || {};
-  const hasProperties = Object.keys(schema.properties || {}).length > 0;
+  let condition = 'false';
 
-  let rulesContent = `    match /${collectionName}/{docId} {
-      // Read operation
-      allow read: if ${rules.read || 'false'};
-      // Get operation
-      allow get: if ${rules.get || rules.read || 'false'};
-      // List operation
-      allow list: if ${rules.list || rules.read || 'false'};
-      // Write operation
-      allow write: if ${rules.write || 'false'};
-      // Create operation
-      allow create: if ${rules.create || rules.write || 'false'}${hasProperties ? ' &&' : ';'}\n`;
-
-  if (hasProperties) {
-    const propertyRules = Object.entries(schema.properties ?? []).map(
-      ([name, prop]) =>
-        `        ${generatePropertyRule(name, prop as JSONSchema7, required.includes(name), true)}`,
-    );
-
-    rulesContent += propertyRules.join(' &&\n') + ';\n';
-
-    // Update operation
-    rulesContent += `      // Update operation
-      allow update: if ${rules.update || rules.write || 'false'} &&\n`;
-
-    const updatePropertyRules = Object.entries(schema.properties ?? []).map(
-      ([name, prop]) =>
-        `        ${generatePropertyRule(name, prop as JSONSchema7, required.includes(name), false)}`,
-    );
-
-    rulesContent += updatePropertyRules.join(' &&\n') + ';\n';
+  switch (operation) {
+    case 'get':
+      condition = rules.get || rules.read || 'false';
+      break;
+    case 'list':
+      condition = rules.list || rules.read || 'false';
+      break;
+    case 'create':
+      condition = rules.create || rules.write || 'false';
+      break;
+    case 'update':
+      condition = rules.update || rules.write || 'false';
+      break;
+    case 'delete':
+      condition = rules.delete || rules.write || 'false';
+      break;
+    default:
+      condition = rules[operation] || 'false';
   }
 
-  // Delete operation
-  rulesContent += `      // Delete operation
-      allow delete: if ${rules.delete || rules.write || 'false'};
-    }`;
+  let rule = `allow ${operation}: if ${condition}`;
 
-  return rulesContent;
+  const isCreate = operation === 'create';
+  const properties = schema.properties || {};
+  const hasProperties = Object.keys(properties).length > 0;
+
+  if (
+    (operation === 'create' ||
+      operation === 'update' ||
+      operation === 'write') &&
+    hasProperties
+  ) {
+    const required = schema.required || [];
+    const propertyRules = Object.entries(properties).map(
+      ([name, prop]) =>
+        `        ${generatePropertyRule(
+          name,
+          prop as JSONSchema7,
+          required.includes(name),
+          isCreate,
+        )}`,
+    );
+    rule += ' &&\n' + propertyRules.join(' &&\n');
+  }
+
+  return rule + ';';
+}
+
+function generateSchemaRules(schema: FirestoreJSONSchema): string {
+  const collectionName = generateCollectionName(schema);
+
+  return `    match /${collectionName}/{docId} {
+      // Read Operations
+      ${generateOperationRule(schema, 'read')}
+      ${generateOperationRule(schema, 'get')}
+      ${generateOperationRule(schema, 'list')}
+      // Write Operations
+      ${generateOperationRule(schema, 'write')}
+      ${generateOperationRule(schema, 'create')}
+      ${generateOperationRule(schema, 'update')}
+      ${generateOperationRule(schema, 'delete')}
+    }`;
 }
 
 export const generateFirestoreRules = async (
