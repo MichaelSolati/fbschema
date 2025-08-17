@@ -1,0 +1,32 @@
+{
+  "$schema": "https://json-schema.org/draft-07/schema#",
+  "$id": "https://raw.githubusercontent.com/MichaelSolati/fbschema/main/fbschema.json",
+  "title": "fbschema meta-schema",
+  "description": "A meta-schema for fbschema documents, extending the standard JSON Schema Draft-07. It requires a 'title' and an 'fbschema' object for defining Firestore security rules.",
+  "allOf": [
+    {
+      "$ref": "https://json-schema.org/draft-07/schema#"
+    }
+  ],
+  "required": [
+    "title",
+    "fbschema"
+  ],
+  "properties": {
+    "fbschema": {
+      "type": "object",
+      "description": "A custom extension to the JSON Schema specification for defining Firestore-specific security rules. Each property in this object corresponds to a Firestore operation (e.g., 'read', 'write', 'create') and its value is a string containing a valid Firestore security rule expression or a boolean.",
+      "additionalProperties": {
+        "oneOf": [
+          {
+            "type": "string",
+            "description": "A valid Firestore security rule expression."
+          },
+          {
+            "type": "boolean"
+          }
+        ]
+      }
+    }
+  }
+}

@@ -11,8 +11,8 @@
 
 ## ✨ Features  
 
-- 🔹 Generates **TypeScript interfaces** from JSON Schema files  
-- 🔹 Generates **Firestore rules** from JSON Schema files with support for:
+- Generates **TypeScript interfaces** from JSON Schema files  
+- Generates **Firestore rules** from JSON Schema files with support for:
   - Type validation (`string`, `number`, `integer`, `boolean`, `array`, `object`)
   - Required field validation
   - Enum value validation
@@ -134,6 +134,29 @@ This will generate rules that:
 > - `delete`: Controls document deletion
 >
 > Note that `read` and `write` are convenience rules that can be used to control multiple operations at once. If you specify both `read` and `get`/`list`, the more specific rule takes precedence. The same applies to `write` and `create`/`update`/`delete`.
+
+## 📖 fbschema Meta-Schema
+
+This project includes a meta-schema that you can use to validate your `fbschema` files and get autocompletion in supported editors like VS Code. The meta-schema ensures that your schema files adhere to the required structure, including the custom `fbschema` property.
+
+To use the meta-schema, add the `$schema` property to your JSON schema files:
+
+```json
+{
+  "$schema": "https://raw.githubusercontent.com/MichaelSolati/fbschema/main/fbschema.json",
+  "title": "YourSchema",
+  "type": "object",
+  "properties": {
+    "...": "..."
+  },
+  "fbschema": {
+    "read": true,
+    "write": false
+  }
+}
+```
+
+By adding the `$schema` property, your editor will provide autocompletion and validation for all standard JSON Schema properties as well as the custom `fbschema` rules, making it easier to write valid and secure Firestore rules.
 
 ## 🤝 Contributing  
 
